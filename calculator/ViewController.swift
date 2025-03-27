@@ -122,6 +122,8 @@ class ViewController: UIViewController {
     let uiLabelResult: UILabel = {
         let result = UILabel()
         result.text = "RESULTADO"
+        result.font = UIFont(name: "HelveticaNeue-Light", size: 20)!
+        result.textColor = .black
         result.translatesAutoresizingMaskIntoConstraints = false
         return result
     }()
@@ -144,6 +146,7 @@ class ViewController: UIViewController {
         addTextField()
         addTextFieldOne()
         setupButtons()
+        addResultLabel()
     }
     
     
@@ -195,7 +198,7 @@ class ViewController: UIViewController {
     
     func addResultLabel() {
         NSLayoutConstraint.activate([
-            uiLabelResult.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            uiLabelResult.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400),
             uiLabelResult.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
