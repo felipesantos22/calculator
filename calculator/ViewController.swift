@@ -222,7 +222,7 @@ class ViewController: UIViewController {
     
     func addResultLabel() {
         NSLayoutConstraint.activate([
-            uiLabelResult.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400),
+            uiLabelResult.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
             uiLabelResult.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
