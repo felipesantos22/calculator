@@ -103,23 +103,47 @@ class ViewController: UIViewController {
     
     
     @objc func plus(){
-        print("plus")
+        if let num1 = Double(uitextField.text ?? ""),
+           let num2 = Double(uitextFieldOne.text ?? "")
+        {
+            let result = num1 + num2
+            uiLabelResult.text = String(result)
+            print(result)
+        }
     }
     
     @objc func minus(){
-        print("minus")
+        if let num1 = Double(uitextField.text ?? ""),
+           let num2 = Double(uitextFieldOne.text ?? "")
+        {
+            let result = num1 - num2
+            uiLabelResult.text = String(result)
+            print(result)
+        }
     }
     
     @objc func div(){
-        print("div")
+        if let num1 = Double(uitextField.text ?? ""),
+           let num2 = Double(uitextFieldOne.text ?? "")
+        {
+            let result = num1 / num2
+            uiLabelResult.text = String(result)
+            print(result)
+        }
     }
     
     @objc func mul(){
-        print("mul")
+        if let num1 = Double(uitextField.text ?? ""),
+           let num2 = Double(uitextFieldOne.text ?? "")
+        {
+            let result = num1 * num2
+            uiLabelResult.text = String(result)
+            print(result)
+        }
     }
     
     
-    let uiLabelResult: UILabel = {
+    var uiLabelResult: UILabel = {
         let result = UILabel()
         result.text = "RESULTADO"
         result.font = UIFont(name: "HelveticaNeue-Light", size: 20)!
