@@ -11,8 +11,6 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         tabBar()
     }
@@ -34,6 +32,7 @@ class TabBarController: UITabBarController {
         tabBar.tintColor = .white
         tabBar.isTranslucent = false
         tabBar.backgroundColor = .lightGray
+        
         
     }
 

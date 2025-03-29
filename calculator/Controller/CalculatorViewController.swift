@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class CalculatorViewController: UIViewController {
     
     let calculatorView = CalculatorView()
     let calculatorModel = CalculatorModel()
+    var context : NSManagedObjectContext!
     
     override func loadView() {
         view = calculatorView
@@ -19,6 +21,12 @@ class CalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dimissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
         setupActions()
     }
     
@@ -29,11 +37,28 @@ class CalculatorViewController: UIViewController {
         calculatorView.uiBtnMul.addTarget(self, action: #selector(mul), for: .touchUpInside)
     }
     
+    func saveResult(_ value1: Double, _ value2: Double, _ result: Double) {
+        let operation = Operation(context: context)
+        operation.num1 = value1
+        operation.num2 = value2
+        operation.result = result
+        operation.timestamp = Date()
+        do {
+            try context.save( )
+            print( "Salvo com sucesso!" )
+        } catch {
+            print( "Erro ao salvar: \(error)" )
+        }
+        
+    }
+    
     @objc func plus() {
         if let num1 = Double(calculatorView.uitextField.text ?? ""),
            let num2 = Double(calculatorView.uitextFieldOne.text ?? "") {
             let result = calculatorModel.add(num1, num2)
             calculatorView.uiLabelResult.text = String(result)
+            print("Salvando operação: \(num1) + \(num2) = \(result)")
+            saveResult(num1, num2, result)
         }
     }
     
@@ -59,5 +84,9 @@ class CalculatorViewController: UIViewController {
             let result = calculatorModel.multiply(num1, num2)
             calculatorView.uiLabelResult.text = String(result)
         }
+    }
+    
+    @objc func dimissKeyboard() {
+        view.endEditing(true)
     }
 }
