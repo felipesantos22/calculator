@@ -15,11 +15,14 @@ class TabBarController: UITabBarController {
         tabBar()
     }
     
-    
     func tabBar(){
-        let calculatorViewController = CalculatorViewController()
-        let tableViewController = TableViewController()
         
+        // Acesse o contexto diretamente do AppDelegate
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let calculatorViewController = CalculatorViewController()
+        let tableViewController = TableViewController(context: context)
+    
         
         let navigationController = UINavigationController(rootViewController: calculatorViewController)
         let navigationController2 = UINavigationController(rootViewController: tableViewController)

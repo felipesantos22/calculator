@@ -10,9 +10,11 @@ import CoreData
 
 class CalculatorViewController: UIViewController {
     
+    var context : NSManagedObjectContext!
     let calculatorView = CalculatorView()
     let calculatorModel = CalculatorModel()
-    var context : NSManagedObjectContext!
+    var tableViewController : TableViewController!
+    
     
     override func loadView() {
         view = calculatorView
@@ -26,6 +28,7 @@ class CalculatorViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        tableViewController = TableViewController(context: context)
         
         setupActions()
     }
@@ -43,14 +46,24 @@ class CalculatorViewController: UIViewController {
         operation.num2 = value2
         operation.result = result
         operation.timestamp = Date()
-        do {
-            try context.save( )
-            print( "Salvo com sucesso!" )
-        } catch {
-            print( "Erro ao salvar: \(error)" )
-        }
         
+        do {
+            try context.save()
+            print("Operação salva com sucesso!")
+            // Atualiza a tabela após salvar
+            self.reloadTableViewData()
+        } catch {
+            print("Erro ao salvar: \(error)")
+        }
     }
+    
+    func reloadTableViewData() {
+        DispatchQueue.main.async {
+            self.tableViewController.fetchData() // Recarregar dados de operação
+            self.tableViewController.tableView.reloadData() // Forçar a atualização da tabela
+        }
+    }
+    
     
     @objc func plus() {
         if let num1 = Double(calculatorView.uitextField.text ?? ""),
