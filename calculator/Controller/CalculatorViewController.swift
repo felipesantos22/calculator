@@ -80,6 +80,8 @@ class CalculatorViewController: UIViewController {
            let num2 = Double(calculatorView.uitextFieldOne.text ?? "") {
             let result = calculatorModel.subtract(num1, num2)
             calculatorView.uiLabelResult.text = String(result)
+            print("Salvando operação: \(num1) - \(num2) = \(result)")
+            saveResult(num1, num2, result)
         }
     }
     
@@ -88,6 +90,8 @@ class CalculatorViewController: UIViewController {
            let num2 = Double(calculatorView.uitextFieldOne.text ?? "") {
             let result = calculatorModel.divide(num1, num2)
             calculatorView.uiLabelResult.text = String(result)
+            print("Salvando operação: \(num1) % \(num2) = \(result)")
+            saveResult(num1, num2, result)
         }
     }
     
@@ -96,6 +100,8 @@ class CalculatorViewController: UIViewController {
            let num2 = Double(calculatorView.uitextFieldOne.text ?? "") {
             let result = calculatorModel.multiply(num1, num2)
             calculatorView.uiLabelResult.text = String(result)
+            print("Salvando operação: \(num1) x \(num2) = \(result)")
+            saveResult(num1, num2, result)
         }
     }
     
