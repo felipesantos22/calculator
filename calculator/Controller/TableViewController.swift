@@ -36,7 +36,7 @@ class TableViewController: UITableViewController {
         
         view.backgroundColor = .white
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
@@ -77,10 +77,9 @@ class TableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         let operationData = operation[indexPath.row]
-        cell.textLabel?.text = String(operationData.result)
+        cell.configure(with: operationData)
         return cell
     }
     
@@ -108,6 +107,11 @@ class TableViewController: UITableViewController {
                 print("Erro ao salvar: \(error), \(error.userInfo)")
             }
         }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
     }
     
     /*
